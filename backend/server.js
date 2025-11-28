@@ -9,6 +9,19 @@ app.use(express.json());
 
 import { db_conn } from "./db.js";
 
+
+app.get("/get-users", async (req, res) => {
+    try {;
+        const [results] = await db_conn.execute(
+            `SELECT * FROM users`
+        );
+        res.status(200).json({ results });
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+})
+
 app.post("/add-user", async (req, res) => {
     console.log(req.body);
     try {
@@ -55,6 +68,10 @@ app.put("/update-user", async (req, res) => {
         console.log(err);
         res.sendStatus(500);
     }
+})
+
+app.get('*splat', (req, res) => {
+    res.sendStatus(404);
 })
 
 app.listen(PORT, () => {
