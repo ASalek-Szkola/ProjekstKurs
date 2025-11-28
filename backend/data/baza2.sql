@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 21, 2025 at 11:02 AM
+-- Generation Time: Lis 28, 2025 at 12:04 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -22,18 +22,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `baza` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `baza`;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `admins`
---
-
-DROP TABLE IF EXISTS `admins`;
-CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,7 +47,9 @@ CREATE TABLE `courses` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` text NOT NULL,
-  `creator_id` int(11) NOT NULL
+  `creator_id` int(11) NOT NULL,
+  `price` decimal(10,0) NOT NULL,
+  `difficulty` enum('Hard','Medium','Easy') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -73,7 +63,8 @@ CREATE TABLE `lessons` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` text NOT NULL,
-  `chapter_id` int(11) NOT NULL
+  `chapter_id` int(11) NOT NULL,
+  `duration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -85,7 +76,11 @@ CREATE TABLE `lessons` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `isAdmin` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -103,12 +98,6 @@ CREATE TABLE `user_courses` (
 --
 -- Indeksy dla zrzutów tabel
 --
-
---
--- Indeksy dla tabeli `admins`
---
-ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeksy dla tabeli `chapters`
@@ -149,12 +138,6 @@ ALTER TABLE `user_courses`
 --
 
 --
--- AUTO_INCREMENT for table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `chapters`
 --
 ALTER TABLE `chapters`
@@ -192,7 +175,7 @@ ALTER TABLE `chapters`
 -- Constraints for table `courses`
 --
 ALTER TABLE `courses`
-  ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`creator_id`) REFERENCES `admins` (`id`);
+  ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `lessons`
@@ -204,8 +187,8 @@ ALTER TABLE `lessons`
 -- Constraints for table `user_courses`
 --
 ALTER TABLE `user_courses`
-  ADD CONSTRAINT `user_courses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `user_courses_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
+  ADD CONSTRAINT `user_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `user_courses_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
