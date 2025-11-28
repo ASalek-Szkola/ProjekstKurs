@@ -9,19 +9,6 @@ app.use(express.json());
 
 import { db_conn } from "./db.js";
 
-app.get("/", async (req, res) => {
-    try {
-        const [results] = await db_conn.query(
-            'SELECT * FROM users'
-        );
-
-        res.status(200).json(results);
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(500);
-    }
-})
-
 app.post("/add-user", async (req, res) => {
     console.log(req.body);
     try {
@@ -39,9 +26,10 @@ app.post("/add-user", async (req, res) => {
     }
 })
 
-app.delete("/delete-user/:id", async (req, res) => {
+app.delete("/delete-user", async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = req.body.id
+        if (id == null) return res.sendStatus(422)
         const [results] = await db_conn.execute(
             `DELETE FROM users WHERE id = ?`,
             [id]
@@ -53,9 +41,10 @@ app.delete("/delete-user/:id", async (req, res) => {
     }
 })
 
-app.put("/update-user/:id", async (req, res) => {
+app.put("/update-user", async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = req.body.id;
+        if (id == null) return res.sendStatus(422)
         const name = req.body.name;
         const [results] = await db_conn.execute(
             `UPDATE users SET name = ? WHERE id = ?`,
