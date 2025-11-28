@@ -64,7 +64,8 @@ CREATE TABLE `lessons` (
   `name` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `chapter_id` int(11) NOT NULL,
-  `duration` int(11) NOT NULL
+  `duration` int(11) NOT NULL,
+  `video_url` VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

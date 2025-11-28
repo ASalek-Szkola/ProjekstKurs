@@ -3,6 +3,9 @@ const PORT = 3000;
 import express from "express";
 const app = express();
 
+import cors from 'cors';
+app.use(cors());
+
 import 'dotenv/config'
 
 app.use(express.json());
@@ -70,7 +73,7 @@ app.put("/update-user", async (req, res) => {
     }
 })
 
-app.get('*splat', (req, res) => {
+app.all('*splat', (req, res) => {
     res.sendStatus(404);
 })
 
