@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
 
 function App() {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    (async() => {
-      try{
+    (async () => {
+      try {
         const response = await fetch("http://localhost:3000/get-users");
         if (!response.ok) throw new Error("Response not OK");
         const json = await response.json();
-        console.log(json)
-      } catch(err) {
-        console.error(err)
-      };
-    })()
-  }, [])
+        setUsers(json);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -34,15 +34,25 @@ function App() {
       <div>
         <table>
           <thead>
-            <th>id</th>
-            <th>name</th>
-            <th></th>
-            <th></th>
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th></th>
+              <th></th>
+            </tr>
           </thead>
+          <tbody>
+            {users.map(data => (
+              <tr key={data.id}>
+                <td>{data.id}</td>
+                <td>{data.name}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

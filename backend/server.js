@@ -18,7 +18,7 @@ app.get("/get-users", async (req, res) => {
         const [results] = await db_conn.execute(
             `SELECT * FROM users`
         );
-        res.status(200).json({ results });
+        res.status(200).json(results);
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
