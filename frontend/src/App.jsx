@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 // import './App.css';
+import './css/nasz.css';
 import NavigationPanel from './components/NavigationPanel';
 import CoursePanel from './components/CoursePanel';
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch("http://localhost:3000/get-users");
+        const response = await fetch("http://localhost:3000/get-courses-with-authors");
         if (!response.ok) throw new Error("Response not OK");
         const json = await response.json();
-        setUsers(json);
+        setCourses(json);
       } catch (err) {
         console.error(err);
       }
@@ -21,8 +22,8 @@ function App() {
 
   return (
     <>
-      <NavigationPanel></NavigationPanel>
-      <CoursePanel></CoursePanel>
+      <NavigationPanel/>
+      <CoursePanel courses={courses}/>
     </>
   );
 }

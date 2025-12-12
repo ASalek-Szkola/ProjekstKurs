@@ -1,13 +1,22 @@
 import FilterPanel from './FilterPanel';
 import CourseCard from './CourseCard';
 
-function CoursePanel({  }) {
+function CoursePanel({ courses }) {
+
+    console.log(courses)
+
+    const courseCards = []
+    courses.forEach(c => {
+        courseCards.push(
+            <CourseCard course={c}/>
+        )
+    });
+
     return (
       <div>
-        <FilterPanel></FilterPanel>
-        <div>
-            {/* TESTOWO */}
-            <CourseCard name={"test22"}/>
+        <FilterPanel/>
+        <div className="coursePanelGrid">
+            {courseCards} 
         </div>
       </div>
     );
