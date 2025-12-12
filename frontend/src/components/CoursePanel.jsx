@@ -6,7 +6,8 @@ function CoursePanel({  }) {
       <div>
         <FilterPanel></FilterPanel>
         <div>
-            
+            {/* TESTOWO */}
+            <CourseCard name={"test22"}/>
         </div>
       </div>
     );
