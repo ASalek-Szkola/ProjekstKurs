@@ -1,8 +1,10 @@
-function CourseCard({  }) {
+import AddToCartButton from "./AddToCartButton";
+
+function CourseCard({ name }) {
     return (
       <div>
-        <span>CourseCard</span>
-        
+        <span>{ name }</span>
+        <AddToCartButton></AddToCartButton>
       </div>
     );
 }
