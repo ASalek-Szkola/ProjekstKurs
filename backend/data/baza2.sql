@@ -49,7 +49,8 @@ CREATE TABLE `courses` (
   `description` text NOT NULL,
   `creator_id` int(11) NOT NULL,
   `price` decimal(10,0) NOT NULL,
-  `difficulty` enum('Hard','Medium','Easy') NOT NULL
+  `difficulty` enum('Hard','Medium','Easy') NOT NULL,
+  `image` VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
