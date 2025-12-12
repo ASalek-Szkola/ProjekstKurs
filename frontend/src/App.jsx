@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import './App.css';
+// import './App.css';
+import NavigationPanel from './components/NavigationPanel';
+import CoursePanel from './components/CoursePanel';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -19,38 +21,8 @@ function App() {
 
   return (
     <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button>
-          count is
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>name</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(data => (
-              <tr key={data.id}>
-                <td>{data.id}</td>
-                <td>{data.name}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <NavigationPanel></NavigationPanel>
+      <CoursePanel></CoursePanel>
     </>
   );
 }
